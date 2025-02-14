@@ -15,7 +15,7 @@ Este projeto automatiza interações no LinkedIn e realiza raspagem de dados de 
 ## 🚀 Como Executar
 1. Clone o repositório:
    ```bash
-   git clone https://github.com/seu-usuario/seu-repositorio.git
+   git clone https://github.com/Isaac-Foster/linkedin_bot.git
    ```
 2. Instale as dependências:
    ```bash
