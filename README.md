@@ -17,12 +17,28 @@ Este projeto automatiza interações no LinkedIn e realiza raspagem de dados de 
    ```bash
    git clone https://github.com/Isaac-Foster/linkedin_bot.git
    ```
-2. Instale as dependências:
+ 2. Configure as credenciais no `.env`:
+    ```
+    # Login used only once to generate the session and save
+    login=""
+    passwd=""
+
+    #name of the folder to save the login session made
+    dir_name="accounts/__your_path_name"
+
+    # name of the folder to save the login session made
+    # Mode select if add people (1) or scraping works (2)
+    search='IT Recruiter'
+    mode=1
+    ```
+
+
+3. Instale as dependências:
    ```bash
    uv sync
    ```
-3. Configure as variáveis de ambiente.
-4. Execute o script principal:
+4. Configure as variáveis de ambiente.
+5. Execute o script principal:
    ```bash
    python main.py
    ```
