@@ -1,7 +1,5 @@
 .env
 .venv
-iambot/*
-isack/*
 backup
 *__pycache__*/*
 accounts/*

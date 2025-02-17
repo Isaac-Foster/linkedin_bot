@@ -15,6 +15,7 @@ class Vars:
     DIR_NAME: str = getenv("dir_name")
     SEARCH: str = getenv("search")
     MODE: int = int(getenv("mode"))
+    TEMPLATE = str = getenv("template").strip()
     QUERY_ATTR_VALUE = ""
 
     def __post_init__(self):

@@ -1,5 +1,8 @@
 import asyncio
 
+from config import VARS
+
+
 async def login(page):
     await asyncio.sleep(1)
     await page.fill('#username', VARS.LOGIN)

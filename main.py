@@ -6,7 +6,7 @@ from core.resource.login import login
 from core.resource.search import search, people, connections
  
 
-async def apply_connections(page):
+async def apply_connections(page, mode):
     await people(page)
     await asyncio.sleep(2)
 
@@ -14,7 +14,7 @@ async def apply_connections(page):
     ended = False
 
     while True:
-        page, connect, ended = await connections(page, connect)
+        page, connect, ended = await connections(page, connect, mode)
 
         if ended: print("Limite de convites atingido"); break
 
@@ -62,11 +62,11 @@ async def main():
         await login(page)
         await asyncio.sleep(60)
     
-    if VARS.MODE  == 1:
+    if VARS.MODE  in (1, 2):
         await search(page, VARS.SEARCH, value=VARS.QUERY_ATTR_VALUE)
-        await apply_connections(page)
+        await apply_connections(page, mode=VARS.MODE)
     
-    elif VARS.MODE == 2:
+    elif VARS.MODE == 3:
         await page.goto("https://www.linkedin.com/jobs/search/?refresh=true")
         await asyncio.sleep(1)
 

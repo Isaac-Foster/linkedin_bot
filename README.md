@@ -27,9 +27,13 @@ Este projeto automatiza interações no LinkedIn e realiza raspagem de dados de 
     dir_name="accounts/__your_path_name"
 
     # name of the folder to save the login session made
-    # Mode select if add people (1) or scraping works (2)
+    # Mode select if add people (1) or add people with note (2)
     search='IT Recruiter'
     mode=1
+
+    template = """
+    hi {name} my name is {my_name} generic text
+    """
     ```
 
 
