@@ -28,6 +28,12 @@ async def people(page):
             break
 
 
+async def disable(invite):
+    if (await invite.is_disabled()):
+        close = await page.query_selector('//button[@aria-label="Fechar"]')
+        await close.click()
+
+
 async def connections(page, connect, mode):
     await page.wait_for_selector('div.search-results-container')
 
@@ -43,7 +49,9 @@ async def connections(page, connect, mode):
         if await invite_button.count() > 0:
             # Aqui você pode clicar no botão, se necessário:
             aria_label = await invite_button.first.get_attribute('aria-label')
-            print(aria_label)
+            name = re.search(r'Convidar (?P<name>[\w\s\.]+) para', aria_label)
+
+            if name: name: str = name["name"].strip()
 
             await invite_button.first.click()
 
@@ -51,32 +59,42 @@ async def connections(page, connect, mode):
 
             await asyncio.sleep(0.4)
 
+
             if mode == 1:
                 await page.wait_for_selector('//button[@aria-label="Enviar sem nota"]')
-
                 invite = await page.query_selector('//button[@aria-label="Enviar sem nota"]')
+
+                if (await invite.is_disabled()):
+                    close = await page.query_selector('//button[@aria-label="Fechar"]')
+                    await close.click()
+                    continue
+
+                print(f"✅ {'\033[33m'}Mandou conexão para: {'\033[95m'}{name}")
 
             
             elif mode == 2:
-                name = re.search(r'Convidar (?P<name>[\w\s\.]+) para', aria_label)
-                print(name)
-                if name: name: str = name["name"].strip()
                 await page.wait_for_selector('//button[@aria-label="Adicionar nota"]')
+
+                invite = await page.query_selector('//button[@aria-label="Enviar sem nota"]')
+
+                if (await invite.is_disabled()):
+                    close = await page.query_selector('//button[@aria-label="Fechar"]')
+                    await close.click()
+                    continue
 
                 invite = await page.query_selector('//button[@aria-label="Adicionar nota"]')
                 await invite.click()
                 template = VARS.TEMPLATE.format(name=name)
                 await page.fill('//textarea[@name="message"]', template)
-                breakpoint()
                 await page.click('//button[@aria-label="Enviar convite"]')
-            
+                print(f"💬 {'\033[32m'}Mandou conexão com nota para: {'\033[95m'}{name}")
 
-            await asyncio.sleep(0.2)
-
-            if (await invite.is_disabled()):
-                close = await page.query_selector('//button[@aria-label="Fechar"]')
-                await close.click()
-                continue
+            try:
+                existis = page.query_selector('//button[@aria-label="Entendi"]')
+                if existis:
+                    await page.click('//button[@aria-label="Entendi"]')
+            except:
+                pass
             
             await asyncio.sleep(0.3)
             await invite.click()
@@ -88,9 +106,7 @@ async def connections(page, connect, mode):
 
                 if text and "limite" in html and not "prestes" in html:
                     return page, connect, True
-
-                elif text and "limite" in html in "prestes" in html:
-                    await page.click('//button[@aria-label="Entendi"]')
+                    
             except: 
                 pass
             connect += 1

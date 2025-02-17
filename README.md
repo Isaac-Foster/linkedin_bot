@@ -27,7 +27,7 @@ Este projeto automatiza interações no LinkedIn e realiza raspagem de dados de 
     dir_name="accounts/__your_path_name"
 
     # name of the folder to save the login session made
-    # Mode select if add people (1) or add people with note (2)
+    # Mode select if add people (1) or add people with note (2) LIMIT 5 or 10 INVITES free user premium not limit invites
     search='IT Recruiter'
     mode=1
 
