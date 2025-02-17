@@ -51,7 +51,7 @@ Este projeto automatiza interações no LinkedIn e realiza raspagem de dados de 
    ```
 
 ### Retorno visual no terminal
-- ![Logotipo da empresa](image.png)
+![TERMINAL](image.png)
 
 ## 📌 Observações
 - A busca por empregos **não é o foco principal** do projeto.
