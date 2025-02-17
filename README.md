@@ -41,11 +41,17 @@ Este projeto automatiza interações no LinkedIn e realiza raspagem de dados de 
    ```bash
    uv sync
    ```
-4. Configure as variáveis de ambiente.
+4. Caso seja a primeira vez executando.
+    ```bash 
+    playwright install
+    ```
 5. Execute o script principal:
    ```bash
    python main.py
    ```
+
+### Retorno visual no terminal
+- ![Logotipo da empresa](image.png)
 
 ## 📌 Observações
 - A busca por empregos **não é o foco principal** do projeto.

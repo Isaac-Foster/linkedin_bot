@@ -90,7 +90,7 @@ async def connections(page, connect, mode):
                 print(f"💬 {'\033[32m'}Mandou conexão com nota para: {'\033[95m'}{name}")
 
             try:
-                existis = page.query_selector('//button[@aria-label="Entendi"]')
+                existis = await page.query_selector('//button[@aria-label="Entendi"]')
                 if existis:
                     await page.click('//button[@aria-label="Entendi"]')
             except:
