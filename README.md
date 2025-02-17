@@ -32,7 +32,7 @@ Este projeto automatiza interações no LinkedIn e realiza raspagem de dados de 
     mode=1
 
     template = """
-    hi {name} my name is {my_name} generic text
+    hi {name} my name is <your_name> generic text
     """
     ```
 

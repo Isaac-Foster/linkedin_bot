@@ -1,4 +1,4 @@
-import asyncio
+import asyncio, re
 
 from config import VARS
 
@@ -42,30 +42,34 @@ async def connections(page, connect, mode):
 
         if await invite_button.count() > 0:
             # Aqui você pode clicar no botão, se necessário:
-            button = await invite_button.first
-            aria_label = await button.get_attribute('aria-label')
+            aria_label = await invite_button.first.get_attribute('aria-label')
+            print(aria_label)
 
             await invite_button.first.click()
 
             html = await page.content()
 
             await asyncio.sleep(0.4)
-            
-            if mode == 2:
-                name = re.search(r'Convidar (?P<name>[\w\s]+) para', aria_label)
-                if name: name: str = name["name"].strip()
 
+            if mode == 1:
+                await page.wait_for_selector('//button[@aria-label="Enviar sem nota"]')
+
+                invite = await page.query_selector('//button[@aria-label="Enviar sem nota"]')
+
+            
+            elif mode == 2:
+                name = re.search(r'Convidar (?P<name>[\w\s\.]+) para', aria_label)
+                print(name)
+                if name: name: str = name["name"].strip()
                 await page.wait_for_selector('//button[@aria-label="Adicionar nota"]')
 
                 invite = await page.query_selector('//button[@aria-label="Adicionar nota"]')
-                template = VARS.format(name=name)
+                await invite.click()
+                template = VARS.TEMPLATE.format(name=name)
                 await page.fill('//textarea[@name="message"]', template)
+                breakpoint()
                 await page.click('//button[@aria-label="Enviar convite"]')
             
-
-            await page.wait_for_selector('//button[@aria-label="Enviar sem nota"]')
-
-            invite = await page.query_selector('//button[@aria-label="Enviar sem nota"]')
 
             await asyncio.sleep(0.2)
 
